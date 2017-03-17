@@ -7,8 +7,7 @@
  <script type="text/javascript" src="tutorials1.js"></script>
  <script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
  <script type="text/javascript" src="webgl-utils.js"></script>
-  </script>
-  <script type="text/javascript">
+ <script type="text/javascript">
     var canvas, gl, shaderProgram, vertexBuffer ;
     // webgl context 생성
     function createGLContext(canvas) {
@@ -86,7 +85,7 @@
   }
   function draw() {
       Triangles.draw(gl,shaderProgram);
-  }
+  }y
 
 
   function startup() {
@@ -97,6 +96,7 @@
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     draw();
   }
+
   </script>
   <body onload="startup();">
   <canvas id="myCanvas" width="1000" height="1000"></canvas>

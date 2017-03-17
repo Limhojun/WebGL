@@ -2,7 +2,8 @@ var Point3D = function() {
   this.x = 0;
   this.y = 0;
   this.z = 0;
-}
+};
+
 Point3D.prototype.set = function (x,y,z) {
   this.x = x;
   this.y = y;
@@ -11,7 +12,7 @@ Point3D.prototype.set = function (x,y,z) {
 
 Point3D.prototype.PointBuffers = function (gl) {
   var vertexBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   var PointCount = 1;
   var PointFloat = PointCount * 3 ;
   var PointArray = new Float32Array(PointFloat);
@@ -46,7 +47,8 @@ var Triangles = function() {
   this.x2 = 0;
   this.y2 = 0;
   this.z2 = 0;
-}
+};
+
 Triangles.prototype.set = function (x,y,z, x1,y1,z1, x2,y2,z2) {
   this.x = x;
   this.y = y;
@@ -63,7 +65,7 @@ Triangles.prototype.set = function (x,y,z, x1,y1,z1, x2,y2,z2) {
 
 Triangles.prototype.PointBuffers = function (gl) {
   var vertexBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   var PointCount = 4;
   var PointFloat = PointCount * 3 ;
   var PointArray = new Float32Array(PointFloat);
