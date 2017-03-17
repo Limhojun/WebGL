@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>hj</title>
+  </head>
+  <script type="text/javascript" src = "glMatrix-0.9.5.min.js"></script>
+  <script type="text/javascript" src = "HJ1.js"></script>
+  <script type="text/javascript" src="webgl-utils.js"></script>
+
+  <script id = "shader-vs" type = "x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec4 aVertexColor;
+
+    varying highp vec4 vColor;
+    void main(){
+      gl_Position = vec4(aVertexPosition, 1.0);
+      vColor = vec4(aVertexColor);
+    }
+
+  </script>
+  <script id = "shader-fs" type = "x-shader/x-fragment">
+    varying highp vec4 vColor;
+    void main() {
+      gl_FragColor = vColor;
+    }
+  </script>
+
+  <script type="text/javascript">
+    var vertexShader,
+        fragmentShader,
+        shaderProgram,
+        fragment,
+        gl,
+        Triangles;
+    // SHADER attribute
+    var vertexPositionAttribute,
+        vertexColorAttribute;
+
+    //Matrix
+    var mvMatrix = mat4.create();
+    var pMatirx = mat4.create();
+    //ObjectCall
+    var x = 0;
+    var y = 0;
+    var z = 0;
+    function ObjectCall() {
+      Triangles = new Triangle();
+    //  Triangles.set(-x, 0.0, 0.0, x, 0.0, 0.0, 0.0, y, 0.0);
+      Triangles.setColor();
+    }
+
+    function getWebGLContext(canvas) {
+      try {
+        gl =  canvas.getContext("webgl") ||
+
+          //Alternative; Safari, others
+          canvas.getContext("experimental-webgl") ||
+
+          //FireFox mozila
+          canvas.getContext("moz-webgl") ||
+
+          //Last
+          canvas.getContext("webkit-3d");
+      } catch (e) {
+
+      } if(!gl){
+        alert("Unable to initialize WebGL. Your browser may not support it");
+        gl = null;
+      }
+
+      return gl;
+    }
+
+    function loadShaders(src, type) {
+      var source = document.getElementById(src).innerHTML;
+      var shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+
+      var success = gl.getShaderParameter(shader, gl.COMPILE_STATUS)
+      if(!success) {
+        throw "could not compileShader" + gl.getShaderInfoLog(shader);
+        }
+      return shader;
+      }
+
+    function InitShaders() {
+      vertexShader = loadShaders("shader-vs", gl.VERTEX_SHADER);
+      fragmentShader = loadShaders("shader-fs" ,gl.FRAGMENT_SHADER);
+
+      shaderProgram = gl.createProgram();
+      gl.attachShader(shaderProgram, vertexShader);
+      gl.attachShader(shaderProgram, fragmentShader);
+      gl.linkProgram(shaderProgram);
+
+      if(!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+        alert("Unable to initialize shader programe");
+      }
+
+      gl.useProgram(shaderProgram);
+
+      shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+      shaderProgram.vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
+    }
+
+    function Draw() {
+      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+    //  gl.viewport(0, 0, canvas.width, canvas.height);
+    //  mat4.perspective(45, canvas.width / canvas.height, 0.1, 100.0, pMatirx);
+    //  mat4.identity(mvMatrix);
+    //  mat4.translate(mvMatirx, [0, 0, -2.0]);
+      Triangles.set(-x, 0.0, 0.0, x, 0.0, 0.0, 0.0, y, 0.0);
+      x += 0.001;
+      y += 0.001;
+      Triangles.draw(gl ,shaderProgram);
+      if(x<1.1){
+        Triangles.trianglePositionBuffer = undefined;
+      }
+    }
+    var lastTime = 0;
+    function animate() {
+        var timeNow = new Date().getTime();
+        if (lastTime != 0) {
+            var elapsed = timeNow - lastTime;
+        }
+        lastTime = timeNow;
+    }
+
+    function tick() {
+      requestAnimFrame(tick);
+      Draw();
+      animate();
+    }
+
+
+    function startWebGL() {
+      var canvas = document.getElementById("my_canvas");
+      getWebGLContext(canvas);
+      gl.enable(gl.DEPTH_TEST);
+      ObjectCall();
+      InitShaders();
+      tick();
+
+    }
+  </script>
+  <body onload = "startWebGL()">
+    <canvas id="my_canvas" width="500" height="500"></canvas>
+
+  </body>
+</html>
