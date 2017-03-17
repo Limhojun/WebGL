@@ -5,9 +5,14 @@
     <title>tutorial1 triangle</title>
   </head>
  <script type="text/javascript" src="tutorials1.js"></script>
+ <script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
+ <script type="text/javascript" src="webgl-utils.js"></script>
   </script>
   <script type="text/javascript">
-    var canvas, gl, shaderProgram, vertexBuffer;
+    var canvas, gl, shaderProgram, vertexBuffer ;
+    var mvMatrix = mat4.create();
+     pMatrix = mat4.create();
+
     // webgl context 생성
     function createGLContext(canvas) {
       var names = ["webgl", "experimental-webgl"];
@@ -49,6 +54,7 @@
       "attribute vec3 aVertexPosition; \n" +
       "void main() { \n" +
       "gl_Position = vec4(aVertexPosition, 1.0); \n" +
+      "gl_PointSize = 333.0; \n" +
       "} \n";
 
     var fragmentShaderSource =
