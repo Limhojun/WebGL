@@ -1,12 +1,10 @@
+/* webgl-utils.js $ */
 {
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "jquery": true
     },
-      "plugins": [ "html" ],
-      "settings": {
-          "html/html-extensions": [".html", ".we"],  // consider .html and .we files as HTML
-      },
     "extends": "eslint:recommended",
     "parserOptions": {
         "sourceType": "module"
@@ -20,13 +18,13 @@
             "error",
             "windows"
         ],
-        "quotes": [
-            "error",
-            "single"
-        ],
         "semi": [
             "error",
             "always"
+        ],
+        "quotes": [
+            "error",
+            "double",
         ],
 
     }

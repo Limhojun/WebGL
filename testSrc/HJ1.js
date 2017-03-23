@@ -3,7 +3,7 @@ var Point3D = function() {
   this.y = 0;
   this.z = 0;
   this.color = new Color();
-}
+};
 Point3D.prototype.setPoint = function (x, y, z) {
   this.x = x;
   this.y = y;
@@ -15,7 +15,7 @@ var Color = function () {
   this.g = 0;
   this.b = 0;
   this.a = 0;
-}
+};
 Color.prototype.setColor = function (r,g,b,a) {
   this.r = r;
   this.g = g;
@@ -29,7 +29,7 @@ var Triangle = function functionName() {
 
   this.trianglePositionBuffer = undefined;
   this.triangleColorBuffer = undefined;
-}
+};
 
 Triangle.prototype.set = function (x1,y1,z1, x2,y2,z2, x3,y3,z3) {
   this.point1.setPoint(x1, y1, z1);
@@ -78,7 +78,7 @@ Triangle.prototype.getPositionBufferKey = function (gl) {
     gl.bufferData(gl.ARRAY_BUFFER, pointArray, gl.STATIC_DRAW);
   }
   return this.trianglePositionBuffer;
-}
+};
 
 Triangle.prototype.getColorBufferKey = function (gl) {
   if(this.triangleColorBuffer == undefined) {
@@ -87,7 +87,7 @@ Triangle.prototype.getColorBufferKey = function (gl) {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.triangleColorBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, colorArray, gl.STATIC_DRAW);
   }
-  return this.triangleColorBuffer
+  return this.triangleColorBuffer;
 };
 
 Triangle.prototype.draw = function (gl, shaderProgram) {

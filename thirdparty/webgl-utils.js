@@ -65,21 +65,21 @@ WebGLUtils = function() {
  *        canvas.
  * @return {string} The html.
  */
-var makeFailHTML = function(msg) {
-  return '' +
+  var makeFailHTML = function(msg) {
+    return '' +
     '<table style="background-color: #8CE; width: 100%; height: 100%;"><tr>' +
     '<td align="center">' +
     '<div style="display: table-cell; vertical-align: middle;">' +
     '<div style="">' + msg + '</div>' +
     '</div>' +
     '</td></tr></table>';
-};
+  };
 
 /**
  * Mesasge for getting a webgl browser
  * @type {string}
  */
-var GET_A_WEBGL_BROWSER = '' +
+  var GET_A_WEBGL_BROWSER = '' +
   'This page requires a browser that supports WebGL.<br/>' +
   '<a href="http://get.webgl.org">Click here to upgrade your browser.</a>';
 
@@ -87,7 +87,7 @@ var GET_A_WEBGL_BROWSER = '' +
  * Mesasge for need better hardware
  * @type {string}
  */
-var OTHER_PROBLEM = '' +
+  var OTHER_PROBLEM = '' +
   "It doesn't appear your computer can support WebGL.<br/>" +
   '<a href="http://get.webgl.org/troubleshooting/">Click here for more information.</a>';
 
@@ -103,19 +103,19 @@ var OTHER_PROBLEM = '' +
  *     if there is an error during creation.
  * @return {WebGLRenderingContext} The created context.
  */
-var setupWebGL = function(canvas, opt_attribs, opt_onError) {
-  function handleCreationError(msg) {
-    var container = canvas.parentNode;
-    if (container) {
-      var str = window.WebGLRenderingContext ?
+  var setupWebGL = function(canvas, opt_attribs, opt_onError) {
+    function handleCreationError(msg) {
+      var container = canvas.parentNode;
+      if (container) {
+        var str = window.WebGLRenderingContext ?
            OTHER_PROBLEM :
            GET_A_WEBGL_BROWSER;
-      if (msg) {
-        str += "<br/><br/>Status: " + msg;
+        if (msg) {
+          str += "<br/><br/>Status: " + msg;
+        }
+        container.innerHTML = makeFailHTML(str);
       }
-      container.innerHTML = makeFailHTML(str);
-    }
-  };
+    };
 
   opt_onError = opt_onError || handleCreationError;
 
@@ -139,10 +139,10 @@ var setupWebGL = function(canvas, opt_attribs, opt_onError) {
  *     from. If one is not passed in one will be created.
  * @return {!WebGLContext} The created context.
  */
-var create3DContext = function(canvas, opt_attribs) {
-  var names = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"];
-  var context = null;
-  for (var ii = 0; ii < names.length; ++ii) {
+  var create3DContext = function(canvas, opt_attribs) {
+    var names = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"];
+    var context = null;
+    for (var ii = 0; ii < names.length; ++ii) {
     try {
       context = canvas.getContext(names[ii], opt_attribs);
     } catch(e) {}
@@ -151,12 +151,12 @@ var create3DContext = function(canvas, opt_attribs) {
     }
   }
   return context;
-}
+  }
 
-return {
-  create3DContext: create3DContext,
-  setupWebGL: setupWebGL
-};
+  return {
+    create3DContext: create3DContext,
+    setupWebGL: setupWebGL
+  };
 }();
 
 /**
@@ -172,4 +172,3 @@ window.requestAnimFrame = (function() {
            window.setTimeout(callback, 1000/60);
          };
 })();
-
